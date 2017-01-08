@@ -106,9 +106,9 @@ if(bool_save) save(FDR_varbvs_med, file = file.path(main_res_dir, "FDR_varbvs.RD
 ## ------------------------------------------
 #
 vec_FDR_desired <- seq(0.2, 0.05, by=-0.05) # here we used 0.2 instead of 0.25
-                                            # (as FDR of 25 % produces PPI maps
-                                            # that are too large to be displayed)
-                                            # but 0.25 for the table below
+# (as FDR of 25 % produces PPI maps
+# that are too large to be displayed)
+# but 0.25 for the table below
 # spline fit
 title <- "vb"
 hm_vb <- prepare_hm(FDR_vb_med$vec_FDR, names(FDR_vb_med$vec_FDR), vec_FDR_desired,

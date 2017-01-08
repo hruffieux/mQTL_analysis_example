@@ -39,7 +39,7 @@ rt_varbvs <- system.time(out_varbvs <- mclapply(1:d, function(k) {
   out <- varbvs(X, Z = NULL, Y[, k], family = "gaussian", update.sigma = T,
                 update.sa = T, verbose = F)
   w <- normalizelogweights(out$logw)
-
+  
   out <- list(out$alpha %*% c(w), out$sigma, out$sa, out$logodds)
   names(out) <- names_out_varbvs
   out
@@ -81,7 +81,7 @@ if (bool_save) {
 compute_roc <- function(ppi, pat) {
   vec_rank <- as.numeric(as.factor(ppi))
   vec_pat <- as.numeric(pat)
-
+  
   require(ROCR)
   pred <- prediction(vec_rank, vec_pat)
   performance(pred, measure = "tpr", x.measure = "fpr")

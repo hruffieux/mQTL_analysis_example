@@ -23,7 +23,7 @@ load_perm_ppi <- function(vec_dir, meth, n_cpus = 1) {
     cat("...\n")
     
     files <- list.files(path = curr_dir, pattern = "*.RData")
-
+    
     require(parallel)
     list_perm <- mclapply(files, function(f) { 
       load(file.path(curr_dir, f))
@@ -160,7 +160,7 @@ prepare_hm <- function(vec_FDR, vec_thres, vec_FDR_desired, ppi, title,
     
     if (bool_save)
       png(paste(out_dir, "/FDR_spline_", title, ".png", sep=""), w=3500, h=3000, 
-           res=500, type="cairo")
+          res=500, type="cairo")
     
     plot(vec_FDR, vec_thres, main = "Permutation-based FDR, cubic spline fit", 
          xlab = "FDR", ylab = ylabel)

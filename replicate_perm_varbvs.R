@@ -30,7 +30,7 @@ bool_save <- T
 if( bool_save ){
   results_dir <- paste(CORE_DIR, "Permute_repl_varbvs_seed_", vec_seed, "/", sep = "")
   dir.create(results_dir)
-
+  
   sink(paste(results_dir, "out.txt", sep=""), append = F, split = T,
        type = "output")
   sink(file(paste(results_dir, "err.txt", sep=""), open = "wt"), type = "message")
@@ -44,9 +44,9 @@ Y <- dat$phenos
 rownames(Y) <- NULL
 
 for (i in 1:n_perm) {
-
+  
   ind_perm <- sample(1:n)
-
+  
   ppi <- mclapply(1:d, function(k) {
     out <- varbvs(X, Z = NULL, Y[ind_perm, k], family ="gaussian",
                   sigma = list_hyper$sigma[,k], sa = list_hyper$sa[,k],
@@ -56,10 +56,10 @@ for (i in 1:n_perm) {
     out$alpha %*% c(w)
   }, mc.cores=n_cpus)
   ppi <- do.call(cbind, ppi)
-
+  
   rownames(ppi) <- colnames(X)
   colnames(ppi) <- colnames(dat$phenos)
-
+  
   save(ind_perm, ppi,
        file = paste(results_dir, "varbvs_real_data_", i, ".RData", sep=""))
 }

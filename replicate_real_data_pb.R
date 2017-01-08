@@ -140,9 +140,9 @@ bool_save <- T
 
 if( bool_save ){
   results_dir <- paste(CORE_DIR, "results/Repl_mQTL_analysis_seed_", my_seed,
-                           "/", sep = "")
+                       "/", sep = "")
   dir.create(results_dir)
-
+  
   sink(paste(results_dir, "out.txt", sep = ""), append = F, split = T,
        type = "output")
   sink(file(paste(results_dir, "err.txt", sep = ""), open = "wt"), type = "message")
@@ -214,7 +214,7 @@ if (bool_save) {
 compute_roc <- function(ppi, pat) {
   vec_rank <- as.numeric(as.factor(ppi))
   vec_pat <- as.numeric(pat)
-
+  
   require(ROCR)
   pred <- prediction(vec_rank, vec_pat)
   performance(pred, measure = "tpr", x.measure = "fpr")
