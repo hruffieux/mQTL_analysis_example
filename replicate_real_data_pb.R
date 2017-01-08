@@ -9,8 +9,8 @@ setwd(main_dir)
 ## joint inference on large mQTL data
 ## ! recommended RAM 512G, if not enough memory is available the code will crash !
 ##
-## the following packages need to be installed: 
-## gplots, ROCR, locus (can be obtained via devtools::install_github("hruffieux/locus", ref = "")), ######### update tag 
+## the following packages need to be installed:
+## gplots, ROCR, locus (can be obtained via devtools::install_github("hruffieux/locus", ref = "")), ######### update tag
 ## -----------------------------------------------------------------------------
 
 
@@ -41,7 +41,8 @@ bl_lgth <- min(1000, p) # block width (for dependence structure replication)
 
 n_cpus <- 12
 
-list_snps <- replicate_real_snps(n, SNPs, bl_lgth, p = p, n_cpus = n_cpus)
+list_snps <- replicate_real_snps(n = n, real_snps = SNPs, bl_lgth = bl_lgth,
+                                 p = p, n_cpus = n_cpus)
 p <- ncol(list_snps$snps)
 
 
@@ -55,7 +56,9 @@ cor_type_ph <- "equicorrelated"
 vec_rho_ph <- sample(seq(0.5, 0.8, by = 0.1), 7, replace = T)
 vec_var_err <- runif(d, min = 0.1, max = 0.5)
 
-list_phenos <- generate_phenos(n, d, cor_type_ph, vec_rho_ph, vec_var_err, n_cpus)
+list_phenos <- generate_phenos(n = n, d = d, var_err = vec_var_err,
+                               cor_type = cor_type_ph, vec_rho = vec_rho_ph,
+                               n_cpus = n_cpus)
 
 
 ## simulates assocation pattern between the SNPs and the outcomes
@@ -142,7 +145,7 @@ if( bool_save ){
   results_dir <- paste(CORE_DIR, "results/Repl_mQTL_analysis_seed_", my_seed,
                        "/", sep = "")
   dir.create(results_dir)
-  
+
   sink(paste(results_dir, "out.txt", sep = ""), append = F, split = T,
        type = "output")
   sink(file(paste(results_dir, "err.txt", sep = ""), open = "wt"), type = "message")
@@ -214,7 +217,7 @@ if (bool_save) {
 compute_roc <- function(ppi, pat) {
   vec_rank <- as.numeric(as.factor(ppi))
   vec_pat <- as.numeric(pat)
-  
+
   require(ROCR)
   pred <- prediction(vec_rank, vec_pat)
   performance(pred, measure = "tpr", x.measure = "fpr")
