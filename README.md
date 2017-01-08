@@ -1,9 +1,9 @@
-# mQTL_analysis_example - Replication of a real metabolite quantitative trait loci (mQTL) analysis using simulated data. 
+# Replication of a metabolite quantitative trait loci (mQTL) analysis using the *locus* method on simulated data 
 
 ## Overview 
 
 The analysis uses our variational inference procedure for combined
-predictor and outcome selection (Helene Ruffieux, Anthony C. Davison,
+predictor and outcome selection (Hélène Ruffieux, Anthony C. Davison,
 Jorg Hager, Irina Irincheeva, 2016, arXiv:1609.03400), which is
 implemented in the R package `locus`.
 
@@ -18,8 +18,10 @@ real conditions.
 ## Algorithm
 
 The package `locus` used for the analysis may be installed with the 
-devtools command 
-`devtools::install_github("hruffieux/locus")`
+`devtools` command 
+```R
+devtools::install_github("hruffieux/locus")
+```
 
 ## Workflow
 
@@ -30,10 +32,10 @@ The scripts should be executed in the following order:
    variational method "varbvs" by Carbonetto and Stephens, 2012, 
    Bayesian Analysis 7);
 
-2. `replicate_perm.R` (analysis on permuted data with locus) and 
-   `replicate_perm_varbvs.R` (idem but with `varbvs`);
+2. `replicate_perm.R` (analysis on permuted data with `locus`) and 
+   `replicate_perm_varbvs.R` (idem but with `varbvs`); and
 
-3. `replicate_FDR_estimation.R` (FDR-based comparison of locus and varbvs)
+3. `replicate_FDR_estimation.R` (FDR-based comparison of `locus` and `varbvs`)
    and `manhattan.R` (manhattan plots for inferences with `locus` and `varbvs`).
 
      
