@@ -7,8 +7,9 @@ setwd(main_dir)
 
 
 ## -----------------------------------------------------------------------------
-## 2 x (200 + 1) posterior inclusion matrices each of size ~200,000 x 250 need to be loaded
-## ! recommended free RAM 200G, if not enough memory is available the code will crash !
+## 2 x (200 + 1) posterior inclusion probability matrices each of size 
+## ~200,000 x 250 need to be loaded
+## ! recommended RAM 200G, if not enough memory is available the code will crash !
 ##
 ## the following packages need to be installed: 
 ## ggplot2, grid, gridExtra, parallel, xtable

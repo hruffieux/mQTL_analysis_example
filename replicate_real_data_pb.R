@@ -6,8 +6,8 @@ main_dir <- file.path(CORE_DIR, "work/mQTL_analysis_example/")
 setwd(main_dir)
 
 ## -----------------------------------------------------------------------------
-## joint inference on a large mQTL problem
-## ! recommended free RAM 512G, if not enough memory is available the code will crash !
+## joint inference on large mQTL data
+## ! recommended RAM 512G, if not enough memory is available the code will crash !
 ##
 ## the following packages need to be installed: 
 ## gplots, ROCR, locus (can be obtained via devtools::install_github("hruffieux/locus", ref = "")), ######### update tag 
@@ -100,7 +100,7 @@ save(bl_lgth, cor_type_ph, d, d0, dat, ind_d0, ind_p0, list_phenos, list_snps,
 ## ---------------------------------------------------------------------
 ## ---------------- LOAD HERE THE DATA SIMULATED ABOVE  ----------------
 ## -------- the .RData file can be downloaded from figshare ------------
-## --- LINK HERE ------------------------------------------------------- ################## update link
+## ------- https://dx.doi.org/10.6084/m9.figshare.4509755.v1 -----------
 
 
 Rdata_obj_dir <- "path/to/simulated/data"
