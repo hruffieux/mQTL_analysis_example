@@ -6,11 +6,13 @@ main_dir <- file.path(CORE_DIR, "work/mQTL_analysis_example/")
 setwd(main_dir)
 
 ## -----------------------------------------------------------------------------
-## joint inference on large mQTL data
-## ! recommended RAM 512G, if not enough memory is available the code will crash !
+## Joint inference on large mQTL data
+## ! Recommended RAM 512G, if not enough memory is available the code will crash !
 ##
-## the following packages need to be installed:
-## gplots, ROCR, locus (can be obtained via devtools::install_github("hruffieux/locus", ref = "")), ######### update tag
+## The following packages need to be installed:
+## gplots, ROCR, locus.
+## The version of locus used in this repository can be installed using:
+## devtools::install_github("hruffieux/locus", ref = "v0.1.0")
 ## -----------------------------------------------------------------------------
 
 

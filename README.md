@@ -20,8 +20,10 @@ real conditions.
 The package `locus` used for the analysis may be installed with the 
 `devtools` command 
 ```R
-devtools::install_github("hruffieux/locus")
+devtools::install_github("hruffieux/locus", ref = "v0.1.0")
 ```
+where `ref = v0.1.0` indicates the git tag corresponding to the package 
+version we used.
 
 ## Workflow
 
@@ -35,7 +37,8 @@ The scripts should be executed in the following order:
 2. `replicate_perm.R` (analysis on permuted data with `locus`) and 
    `replicate_perm_varbvs.R` (idem but with `varbvs`); and
 
-3. `replicate_FDR_estimation.R` (FDR-based comparison of `locus` and `varbvs`)
-   and `manhattan.R` (manhattan plots for inferences with `locus` and `varbvs`).
+3. `replicate_FDR_estimation.R` (FDR-based comparison of `locus` and 
+   `varbvs`) and `manhattan.R` (manhattan plots for inferences with 
+   `locus` and `varbvs`).
 
      
