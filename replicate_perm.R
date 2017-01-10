@@ -10,7 +10,7 @@ setwd(main_dir)
 ## ! Recommended RAM 512G, if not enough memory is available the code will crash !
 ##
 ## The locus package need to be installed: 
-## devtools::install_github("hruffieux/locus", ref = "v0.1.0") 
+## devtools::install_github("hruffieux/locus", ref = "v0.1.1") 
 ## -----------------------------------------------------------------------------
 
 Rdata_obj_dir <- "path/to/simulated/data"

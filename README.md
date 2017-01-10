@@ -20,7 +20,7 @@ real conditions.
 The package `locus` used for the analysis may be installed with the 
 `devtools` command 
 ```R
-devtools::install_github("hruffieux/locus", ref = "v0.1.0")
+devtools::install_github("hruffieux/locus", ref = "v0.1.1")
 ```
 where `ref = v0.1.0` indicates the git tag corresponding to the package 
 version we used.
