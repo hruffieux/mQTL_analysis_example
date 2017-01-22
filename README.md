@@ -22,7 +22,7 @@ The package `locus` used for the analysis may be installed with the
 ```R
 devtools::install_github("hruffieux/locus", ref = "v0.1.1")
 ```
-where `ref = v0.1.0` indicates the git tag corresponding to the package 
+where `ref = v0.1.1` indicates the git tag corresponding to the package 
 version we used.
 
 ## Workflow
