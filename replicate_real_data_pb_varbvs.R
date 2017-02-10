@@ -26,7 +26,7 @@ require(parallel)
 
 n_cpus <- 12
 
-bool_save <- T
+bool_save <- TRUE
 
 X <- apply(dat$snps, 2, as.double)
 Y <- dat$phenos
@@ -36,8 +36,8 @@ names_out_varbvs <- c("ppi", "sigma", "sa", "logodds")
 
 
 rt_varbvs <- system.time(out_varbvs <- mclapply(1:d, function(k) {
-  out <- varbvs(X, Z = NULL, Y[, k], family = "gaussian", update.sigma = T,
-                update.sa = T, verbose = F)
+  out <- varbvs(X, Z = NULL, Y[, k], family = "gaussian", update.sigma = TRUE,
+                update.sa = TRUE, verbose = FALSE)
   w <- normalizelogweights(out$logw)
   
   out <- list(out$alpha %*% c(w), out$sigma, out$sa, out$logodds)
@@ -68,12 +68,12 @@ require(gplots)
 hmcols<-colorRampPalette(c("grey98", "black"))(256)
 
 par(cex.main = 0.8, cex.lab = 0.8)
-heatmap.2(ppi_varbvs[ind_p0,], dendrogram = "none", col = hmcols, Rowv = F,
-          Colv = F, main = "varbvs, PPI",
-          density.info = "none", trace = "none", key = F,
+heatmap.2(ppi_varbvs[ind_p0,], dendrogram = "none", col = hmcols, Rowv = FALSE,
+          Colv = FALSE, main = "varbvs, PPI",
+          density.info = "none", trace = "none", key = FALSE,
           xlab = "Y", ylab = "X (Only rows with at least one active covariate)",
           lhei = c(1, 3), lwid = c(0.2, 1),
-          labRow = F, labCol = F, margins = c(3, 3))
+          labRow = FALSE, labCol = FALSE, margins = c(3, 3))
 if (bool_save) {
   dev.off()
 }
@@ -94,7 +94,7 @@ if (bool_save) {
       res = 500, type = "cairo")
 }
 plot(perf_varbvs, col = "pink", type = "l", lwd = 2,
-     main = paste("ROC curve varbvs\n p = ", format(p, scientific = F), ", d = ",
+     main = paste("ROC curve varbvs\n p = ", format(p, scientific = FALSE), ", d = ",
                   d, ", n = ", n, sep = ""))
 abline(0,1)
 

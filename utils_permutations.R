@@ -42,11 +42,11 @@ load_perm_ppi <- function(vec_dir, meth, n_cpus = 1) {
 
 
 
-# estimates permutation-based F positive rates (FDR) from a grid of thresholds
+# estimates permutation-based false positive rates (FDR) from a grid of thresholds
 # on the posterior inclusion probabilities
 #
 estimate_FDR <- function(list_perm_ppi, actual_ppi, vec_thres_ppi, type, 
-                         n_cpus = 1, bool_tab = T, bool_adapt_thres = F) {
+                         n_cpus = 1, bool_tab = TRUE, bool_adapt_thres = FALSE) {
   
   stopifnot(type %in% c("mean", "median"))
   
@@ -78,7 +78,7 @@ estimate_FDR <- function(list_perm_ppi, actual_ppi, vec_thres_ppi, type,
         tab_declared <- which(actual_ppi > thres_ppi)
         n_declared <- length(tab_declared)
       } else { 
-        tab_declared <- which(actual_ppi > thres_ppi, arr.ind = T)
+        tab_declared <- which(actual_ppi > thres_ppi, arr.ind = TRUE)
         n_declared <- nrow(tab_declared)
       }
     } else {
@@ -123,7 +123,7 @@ find_closest_FDR_thres <- function(vec_FDR_avail, vec_FDR_desired) {
 # finds posterior inclusion probabilities thresholds corresponding to specific FDR
 # values by fitting a spline to previously estimated FDR-threshold values
 prepare_hm <- function(vec_FDR, vec_thres, vec_FDR_desired, ppi, title, 
-                       out_dir = NULL, spar = NULL, bool_save = F, bool_log = F) {
+                       out_dir = NULL, spar = NULL, bool_save = FALSE, bool_log = FALSE) {
   
   if (bool_save) stopifnot(!is.null(out_dir))
   if (!is.null(spar) & length(unique(vec_FDR)) < 4) { 
@@ -136,7 +136,7 @@ prepare_hm <- function(vec_FDR, vec_thres, vec_FDR_desired, ppi, title,
     # takes the corresponding thresholds
     ind_select <- find_closest_FDR_thres(vec_FDR, vec_FDR_desired)
     FDR_select <- vec_FDR[ind_select]
-    tab <- which(ppi > vec_thres[ind_select[1]], arr.ind = T)
+    tab <- which(ppi > vec_thres[ind_select[1]], arr.ind = TRUE)
     vec_thres_select <- vec_thres[ind_select]
     
   } else { # fits a spline
@@ -156,7 +156,7 @@ prepare_hm <- function(vec_FDR, vec_thres, vec_FDR_desired, ppi, title,
     
     FDR_select <- vec_FDR_desired 
     names(FDR_select) <- vec_thres_select
-    tab <- which(ppi > vec_thres_select[1], arr.ind = T)
+    tab <- which(ppi > vec_thres_select[1], arr.ind = TRUE)
     
     if (bool_save)
       png(paste(out_dir, "/FDR_spline_", title, ".png", sep=""), w=3500, h=3000, 
@@ -197,8 +197,8 @@ make_obj_compare <- function(mat, thres, text, symb = "x", color = "red", cexc =
 # corresponding PPI thresholds.
 #
 make_FDR_heatmap <- function(ppi, ind_s, ind_t, vec_FDR, x_max, y_max, title,
-                             out_dir = NULL, title_file = NULL, bool_save = F,
-                             bool_repl = F, obj_comp1 = NULL, obj_comp2 = NULL) {
+                             out_dir = NULL, title_file = NULL, bool_save = FALSE,
+                             bool_repl = FALSE, obj_comp1 = NULL, obj_comp2 = NULL) {
   
   if(bool_save) stopifnot(!is.null(out_dir) & !is.null(title_file))
   
@@ -214,16 +214,16 @@ make_FDR_heatmap <- function(ppi, ind_s, ind_t, vec_FDR, x_max, y_max, title,
   mat_fdr <- matrix(0, nrow = nrow(ppi), ncol = ncol(ppi))
   
   # assigns associations based on the FDR threshold at which they are declared
-  vec_pres <- rep(T, n_thres+1) 
+  vec_pres <- rep(TRUE, n_thres+1) 
   for(i in 2:n_thres) {
     bool_int <- ppi > vec_FDR_thres[i-1] & ppi <= vec_FDR_thres[i]
     mat_fdr[bool_int] <- i-1
-    if (all(!bool_int)) vec_pres[i] <- F
+    if (all(!bool_int)) vec_pres[i] <- FALSE
   }
   
   bool_int <- ppi > vec_FDR_thres[n_thres]
   mat_fdr[bool_int] <- n_thres
-  if (all(!bool_int)) vec_pres[n_thres+1] <- F
+  if (all(!bool_int)) vec_pres[n_thres+1] <- FALSE
   
   rownames(mat_fdr) <- rownames(ppi)
   colnames(mat_fdr) <- colnames(ppi)

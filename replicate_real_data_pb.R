@@ -55,10 +55,10 @@ d <- 250 # number of outcomes
 
 # 7 blocks of equicorrelated outcomes
 cor_type_ph <- "equicorrelated"
-vec_rho_ph <- sample(seq(0.5, 0.8, by = 0.1), 7, replace = T)
-vec_var_err <- runif(d, min = 0.1, max = 0.5)
+vec_rho_ph <- sample(seq(0.5, 0.8, by = 0.1), 7, replace = TRUE)
+var_err <- 1
 
-list_phenos <- generate_phenos(n = n, d = d, var_err = vec_var_err,
+list_phenos <- generate_phenos(n = n, d = d, var_err = var_err,
                                cor_type = cor_type_ph, vec_rho = vec_rho_ph,
                                n_cpus = n_cpus)
 
@@ -66,10 +66,10 @@ list_phenos <- generate_phenos(n = n, d = d, var_err = vec_var_err,
 ## simulates assocation pattern between the SNPs and the outcomes
 #
 p0 <- 750  # number of active SNPs
-ind_p0 <- sample(1:p, p0, replace = F)
+ind_p0 <- sample(1:p, p0, replace = FALSE)
 
 d0 <- 175  # number of active outcomes
-ind_d0 <- sample(1:d, d0, replace = F)
+ind_d0 <- sample(1:d, d0, replace = FALSE)
 
 
 # associations distributed across blocks of correlated outcomes so that a given
@@ -86,16 +86,15 @@ sh2_rare <- 5
 vec_prob_sh <- c(rbeta(n_freq, shape1 = 1, shape2 = sh2_freq),
                  rbeta(n_rare, shape1 = 1, shape2 = sh2_rare))
 
-pve_per_snp <- NULL
 max_tot_pve <- 0.4 # maximum total proportion of outcome variance explained by the SNPs.
 
 dat <- generate_dependence(list_snps, list_phenos, ind_d0, ind_p0, vec_prob_sh,
-                           pve_per_snp, max_tot_pve)
+                           family = "gaussian", max_tot_pve = max_tot_pve)
 
 Rdata_obj_dir <- file.path(CORE_DIR, "data/")
 save(bl_lgth, cor_type_ph, d, d0, dat, ind_d0, ind_p0, list_phenos, list_snps,
      max_tot_pve, n, n_freq, n_rare, p, p0, sh2_freq, sh2_rare, vec_prob_sh,
-     vec_rho_ph, vec_var_err,
+     vec_rho_ph, var_err,
      file = file.path(Rdata_obj_dir, "simulated_data_from_real_SNPs.RData"))
 
 ## ------------------------------- END ---------------------------------
@@ -117,14 +116,9 @@ load(file.path(Rdata_obj_dir, "simulated_data_from_real_SNPs.RData"))
 ## --------------------------- VB INFERENCE ----------------------------
 
 
-batch <- T
 tol <- 1e-6
-maxit <- 5000
 
-cv <- T
-verbose <- T
-save_hyper <- T
-save_init <- T
+cv <- TRUE
 
 if( cv ){
   p0_av <- NULL
@@ -132,23 +126,20 @@ if( cv ){
   size_p0_av_grid <- 5
   n_cpus <- 3
   tol_cv <- 1e-3
-  maxit_cv <- maxit
-  batch_cv <- batch
-  list_cv <- set_cv(n, p, n_folds, size_p0_av_grid, n_cpus, tol_cv, maxit_cv,
-                    batch_cv, verbose)
+  list_cv <- set_cv(n, p, n_folds, size_p0_av_grid, n_cpus, tol_cv)
 } else {
   p0_av <- min(1000, p / 3)
   list_cv <- NULL
 }
 
-bool_save <- T
+bool_save <- TRUE
 
 if( bool_save ){
   results_dir <- paste(CORE_DIR, "results/Repl_mQTL_analysis_seed_", my_seed,
                        "/", sep = "")
   dir.create(results_dir)
 
-  sink(paste(results_dir, "out.txt", sep = ""), append = F, split = T,
+  sink(paste(results_dir, "out.txt", sep = ""), append = FALSE, split = TRUE,
        type = "output")
   sink(file(paste(results_dir, "err.txt", sep = ""), open = "wt"), type = "message")
 }
@@ -162,35 +153,33 @@ require(gplots)
 hmcols<-colorRampPalette(c("grey98", "black"))(256)
 
 par(cex.main = 0.8, cex.lab = 0.8)
-heatmap.2(1*dat$pat[ind_p0,], dendrogram = "none", col = hmcols, Rowv = F,
-          Colv = F, main = "Simulated pattern",
-          density.info = "none", trace = "none", key = F,
+heatmap.2(1*dat$pat[ind_p0,], dendrogram = "none", col = hmcols, Rowv = FALSE,
+          Colv = FALSE, main = "Simulated pattern",
+          density.info = "none", trace = "none", key = FALSE,
           xlab = "Y", ylab = "X (Only rows with at least one active covariate)",
           lhei = c(1, 3), lwid = c(0.2, 1),
-          labRow = F, labCol = F, margins = c(3, 3))
+          labRow = FALSE, labCol = FALSE, margins = c(3, 3))
 if (bool_save) {
   dev.off()
   png(paste(results_dir,"hm_simulated_abs_beta_ind_p0.png", sep = ""),
       w = 2500, h = 2750, res = 500, type = "cairo")
 }
 par(cex.main = 0.8, cex.lab = 0.8)
-heatmap.2(abs(dat$beta[ind_p0,]), dendrogram = "none", col = hmcols, Rowv = F,
-          Colv = F, main = "Simulated |beta|",
-          density.info = "none", trace = "none", key = F,
+heatmap.2(abs(dat$beta[ind_p0,]), dendrogram = "none", col = hmcols, Rowv = FALSE,
+          Colv = FALSE, main = "Simulated |beta|",
+          density.info = "none", trace = "none", key = FALSE,
           xlab = "Y", ylab = "X (Only rows with at least one active covariate)",
           lhei = c(1, 3), lwid = c(0.2, 1),
-          labRow = F, labCol = F, margins = c(3, 3))
+          labRow = FALSE, labCol = FALSE, margins = c(3, 3))
 if (bool_save) {
   dev.off()
 }
 
 
-rt_vb <- system.time(out_vb <- locus(dat$phenos, dat$snps, p0_av, Z = NULL,
-                                     list_hyper = NULL, list_init = NULL,
-                                     list_cv = list_cv, list_blocks = NULL,
-                                     user_seed = my_seed, tol = tol, maxit = maxit,
-                                     batch = batch, save_hyper = save_hyper,
-                                     save_init = save_init, verbose = verbose))
+rt_vb <- system.time(out_vb <- locus(dat$phenos, dat$snps, p0_av, 
+                                     list_cv = list_cv, user_seed = my_seed, 
+                                     tol = tol, save_hyper = TRUE, 
+                                     save_init = TRUE))
 
 cat("VB run done in [seconds]: \n")
 print(rt_vb)
@@ -206,12 +195,12 @@ if (bool_save) {
       res = 500, type = "cairo")
 }
 par(cex.main = 0.8, cex.lab = 0.8)
-heatmap.2(out_vb$gam_vb[ind_p0,], dendrogram = "none", col = hmcols, Rowv = F,
-          Colv = F, main = "VB, PPI",
-          density.info = "none", trace = "none", key = F,
+heatmap.2(out_vb$gam_vb[ind_p0,], dendrogram = "none", col = hmcols, Rowv = FALSE,
+          Colv = FALSE, main = "VB, PPI",
+          density.info = "none", trace = "none", key = FALSE,
           xlab = "Y", ylab = "X (Only rows with at least one active covariate)",
           lhei = c(1, 3), lwid = c(0.2, 1),
-          labRow = F, labCol = F, margins = c(3, 3))
+          labRow = FALSE, labCol = FALSE, margins = c(3, 3))
 if (bool_save) {
   dev.off()
 }
@@ -232,7 +221,7 @@ if (bool_save) {
        res = 500, type = "cairo")
 }
 plot(perf_vb, col = "darkblue", type = "l", lwd = 2,
-     main = paste("ROC curve VB \n p = ", format(p, scientific = F),
+     main = paste("ROC curve VB \n p = ", format(p, scientific = FALSE),
                   ", d = ", d, ", n = ", n, sep = ""))
 abline(0,1)
 if (bool_save) {

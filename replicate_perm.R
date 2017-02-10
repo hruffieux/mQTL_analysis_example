@@ -24,29 +24,22 @@ require(locus)
 
 my_seed <- 111
 
-batch <- T
 tol <- 1e-3
-maxit <- 5000
-
-verbose <- T
-
 n_perm <- 25
 n_cpus <- 1
 
-list_blocks <- NULL
 
 results_dir <- paste(CORE_DIR, "results/Permute_repl_seed_", my_seed, "/", sep = "")
 dir.create(results_dir)
 
-sink(paste(results_dir, "out.txt", sep=""), append = F, split = T,
+sink(paste(results_dir, "out.txt", sep=""), append = FALSE, split = TRUE,
      type = "output")
 sink(file(paste(results_dir, "err.txt", sep=""), open = "wt"), type = "message")
 
 generate_null(n_perm = n_perm, Y = dat$phenos, X = dat$snps, p0_av = p0_av, 
-              Z = NULL, list_hyper = list_hyper, list_init = list_init, 
-              list_blocks = list_blocks, user_seed = my_seed, tol = tol, 
-              maxit = maxit, batch = batch, verbose = verbose,
-              results_dir = results_dir, n_cpus = n_cpus)
+              list_hyper = list_hyper, list_init = list_init, 
+              user_seed = my_seed, tol = tol, results_dir = results_dir, 
+              n_cpus = n_cpus)
 
 ## Reproducibility
 #

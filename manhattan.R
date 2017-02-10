@@ -19,7 +19,7 @@ load(file.path(results_dir, "output_varbvs.RData"))
 ## displayed.
 #
 make_manhattan <- function(scores_x, name, thres = 5e-7, results_dir = NULL,
-                           log_10 = T, minus = F, ytitle = "score",
+                           log_10 = TRUE, minus = FALSE, ytitle = "score",
                            size_text = 0.5, path_chr = NULL, vec_pat = NULL,
                            vec_col = c("black", "red"), leg = NULL, add = 0.0) {
   
@@ -28,8 +28,8 @@ make_manhattan <- function(scores_x, name, thres = 5e-7, results_dir = NULL,
   
   if (is.null(path_chr)) {
     
-    data <- as.data.frame(scores_x, stringsAsFactors = F)
-    if (is.null(vec_pat)) spot <- F
+    data <- as.data.frame(scores_x, stringsAsFactors = FALSE)
+    if (is.null(vec_pat)) spot <- FALSE
     else spot <- vec_pat
     
   } else {
@@ -48,7 +48,7 @@ make_manhattan <- function(scores_x, name, thres = 5e-7, results_dir = NULL,
     rsID <- names(scores_x)
     
     data <- as.data.frame(cbind(chr_string, pos, rsID, scores_x),
-                          stringsAsFactors = F)
+                          stringsAsFactors = FALSE)
     
     spot <- as.numeric(gsub(data$chr_string[data$chr_string != "chrX"],
                             pattern = "chr", replacement = "")) %% 2
@@ -66,7 +66,7 @@ make_manhattan <- function(scores_x, name, thres = 5e-7, results_dir = NULL,
     vec_at <- c(vec_at, incr)
   }
   
-  spot_thres <- ifelse(as.numeric(as.character(data[,"scores_x"])) > thres, T, F)
+  spot_thres <- ifelse(as.numeric(as.character(data[,"scores_x"])) > thres, TRUE, FALSE)
   
   at_y <- seq(min(as.numeric(as.character(data$scores_x))),
               max(as.numeric(as.character(data$scores_x))) + 0.1, length.out = 4)
@@ -76,9 +76,9 @@ make_manhattan <- function(scores_x, name, thres = 5e-7, results_dir = NULL,
     sign_at_y <- at_y
   
   if(log_10)
-    lab_y <- format(10^sign_at_y, digits = 3, scientific = T)
+    lab_y <- format(10^sign_at_y, digits = 3, scientific = TRUE)
   else
-    lab_y <- format(sign_at_y, digits = 3, scientific = T)
+    lab_y <- format(sign_at_y, digits = 3, scientific = TRUE)
   
   if (!is.null(results_dir)) {
     png(paste(results_dir,"manhattan_plot_", name, ".png", sep=""), w=3250, h=2500,
@@ -88,7 +88,7 @@ make_manhattan <- function(scores_x, name, thres = 5e-7, results_dir = NULL,
   plot(x = 1:nrow(data), y = as.numeric(as.character(data$scores_x)),
        ylim = c(min(as.numeric(as.character(data$scores_x))),
                 max(as.numeric(as.character(data$scores_x))) + add),
-       col = vec_col[as.factor(spot)], pch=20, axes=F,
+       col = vec_col[as.factor(spot)], pch=20, axes=FALSE,
        main = paste("Manhattan plot ", name, sep = ""), xlab="SNPs", ylab=ytitle)
   
   if (any(spot_thres)) {

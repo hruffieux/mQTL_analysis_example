@@ -23,15 +23,15 @@ set.seed(my_seed)
 n_perm <- 25
 
 n_cpus <- 12
-verbose <- F
+verbose <- FALSE
 
-bool_save <- T
+bool_save <- TRUE
 
 if( bool_save ){
   results_dir <- paste(CORE_DIR, "Permute_repl_varbvs_seed_", vec_seed, "/", sep = "")
   dir.create(results_dir)
   
-  sink(paste(results_dir, "out.txt", sep=""), append = F, split = T,
+  sink(paste(results_dir, "out.txt", sep=""), append = FALSE, split = TRUE,
        type = "output")
   sink(file(paste(results_dir, "err.txt", sep=""), open = "wt"), type = "message")
 }
@@ -50,8 +50,8 @@ for (i in 1:n_perm) {
   ppi <- mclapply(1:d, function(k) {
     out <- varbvs(X, Z = NULL, Y[ind_perm, k], family ="gaussian",
                   sigma = list_hyper$sigma[,k], sa = list_hyper$sa[,k],
-                  logodds = list_hyper$logodds[,k], update.sigma = F,
-                  update.sa = F, verbose = verbose)
+                  logodds = list_hyper$logodds[,k], update.sigma = FALSE,
+                  update.sa = FALSE, verbose = verbose)
     w <- normalizelogweights(out$logw)
     out$alpha %*% c(w)
   }, mc.cores=n_cpus)

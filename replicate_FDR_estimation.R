@@ -17,7 +17,7 @@ setwd(main_dir)
 
 source("utils_permutations.R")
 
-bool_save <- T
+bool_save <- TRUE
 
 main_res_dir <- file.edit(CORE_DIR, "results/Repl_mQTL_analysis_seed_123/")
 
@@ -89,7 +89,7 @@ load(file.path(main_res_dir, "output_varbvs.RData"))
 vec_thres_varbvs <- seq(0.001, 0.999, by = 0.001)
 
 FDR_varbvs_med <- estimate_FDR(list_ppi_varbvs, ppi_varbvs, vec_thres_varbvs,
-                               type = "median", n_cpus = 1, bool_adapt_thres = T)
+                               type = "median", n_cpus = 1, bool_adapt_thres = TRUE)
 
 rm(list_ppi_varbvs, vec_thres_varbvs)
 
@@ -152,14 +152,14 @@ title <- "VB"
 title_file <- "VB_FDR_map"
 
 make_FDR_heatmap(out_vb$gam_vb, ind_s, ind_t, hm_vb$FDR_select, x_max, y_max,
-                 title, out_dir, title_file, bool_save, bool_repl = T, obj_comp)
+                 title, out_dir, title_file, bool_save, bool_repl = TRUE, obj_comp)
 
 title <- "varbvs"
 title_file <- "varbvs_FDR_map"
 
 make_FDR_heatmap(ppi_varbvs_adapt_thres, ind_s, ind_t, hm_varbvs$FDR_select,
                  x_max, y_max, title, out_dir, title_file, bool_save,
-                 bool_repl = T, obj_comp)
+                 bool_repl = TRUE, obj_comp)
 
 
 ## number of correct associations recovered at prescribed FDR values
@@ -167,12 +167,12 @@ make_FDR_heatmap(ppi_varbvs_adapt_thres, ind_s, ind_t, hm_varbvs$FDR_select,
 #
 list_tab_tp_vb <- sapply(hm_vb$vec_thres_select,
                          function(thres) which(out_vb$gam_vb > thres & dat$pat,
-                                               arr.ind = T))
+                                               arr.ind = TRUE))
 n_tp_vb <- unlist(lapply(list_tab_tp_vb, nrow))
 
 list_tab_tp_varbvs <- sapply(hm_varbvs$vec_thres_select,
                              function(thres) which(ppi_varbvs_adapt_thres > thres & dat$pat,
-                                                   arr.ind = T))
+                                                   arr.ind = TRUE))
 n_tp_varbvs <- unlist(lapply(list_tab_tp_varbvs, nrow))
 
 n_inter_tp <- sapply(1:length(vec_FDR_desired),
@@ -184,7 +184,7 @@ colnames(tb) <- c("Permutation-based FDR (%)", "# TP, VB", "# TP, varbvs",
                   "# TP, VB inter varbvs")
 
 require(xtable)
-print(xtable(tb, digits = 0, align=rep("c", 5)), include.rownames = F)
+print(xtable(tb, digits = 0, align=rep("c", 5)), include.rownames = FALSE)
 
 
 ## Reproducibility
