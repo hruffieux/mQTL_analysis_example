@@ -24,9 +24,9 @@ confidential SNP data.
 The package **locus** used for the analysis may be installed with the 
 `devtools` command 
 ```R
-devtools::install_github("hruffieux/locus", ref = "v0.2.0")
+devtools::install_github("hruffieux/locus", ref = "v0.3.0")
 ```
-where `ref = v0.2.0` indicates the git tag corresponding to the package 
+where `ref = v0.3.0` indicates the git tag corresponding to the package 
 version we used.
 
 ## Workflow
