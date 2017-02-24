@@ -69,8 +69,10 @@ d0 <- 175  # number of active outcomes
 ind_d0 <- sample(1:d, d0, replace = FALSE)
 
 
-# associations distributed across blocks of correlated outcomes so that a given
-# active SNP
+# associations distributed across blocks of correlated phenotypes so that a given
+# active SNP is either highly likely to be associated with the phenotypes of
+# given block or not likely to be associated with any phenotype of the block
+#
 n_freq <- 200
 sh2_freq <- 500
 
