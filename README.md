@@ -6,8 +6,7 @@ A molecular quantitative trait locus analysis is performed using our
 variational inference procedure for combined predictor and outcome 
 selection implemented in the R package **locus**. This example reproduces 
 the application given in Hélène Ruffieux, Anthony C. Davison,
-Jorg Hager, Irina Irincheeva, 2016, arXiv:1609.03400, to appear in 
-*Biostatistics*.
+Jorg Hager, Irina Irincheeva, 2017, *Biostatistics*.
 
 ## Data
 
@@ -24,9 +23,9 @@ confidential SNP data.
 The package **locus** used for the analysis may be installed with the 
 `devtools` command 
 ```R
-devtools::install_github("hruffieux/locus", ref = "v0.3.0")
+devtools::install_github("hruffieux/locus", ref = "v0.5.0")
 ```
-where `ref = v0.3.0` indicates the git tag corresponding to the package 
+where `ref = v0.5.0` indicates the git tag corresponding to the package 
 version we used.
 
 ## Workflow

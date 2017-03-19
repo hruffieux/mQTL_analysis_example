@@ -7,7 +7,7 @@ setwd(main_dir)
 
 ## -----------------------------------------------------------------------------
 ## The locus package need to be installed: 
-## devtools::install_github("hruffieux/locus", ref = "v0.3.0") 
+## devtools::install_github("hruffieux/locus", ref = "v0.5.0") 
 ## -----------------------------------------------------------------------------
 
 Rdata_obj_dir <- "path/to/simulated/data"
@@ -58,4 +58,4 @@ sessionInfo()
 #   [1] stats     graphics  grDevices utils     datasets  methods   base
 #
 # other attached packages:
-#   [1] locus_0.3.0
+#   [1] locus_0.5.0

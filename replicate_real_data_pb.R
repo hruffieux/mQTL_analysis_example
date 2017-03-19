@@ -9,7 +9,7 @@ setwd(main_dir)
 ## The following packages need to be installed:
 ## gplots, ROCR, locus.
 ## The version of locus used in this repository can be installed using:
-## devtools::install_github("hruffieux/locus", ref = "v0.3.0")
+## devtools::install_github("hruffieux/locus", ref = "v0.5.0")
 ## -----------------------------------------------------------------------------
 
 
@@ -249,7 +249,7 @@ sessionInfo()
 # [8] base
 #
 # other attached packages:
-#   [1] locus_0.3.0   ROCR_1.0-7    gplots_2.17.0 Matrix_1.2-2
+#   [1] locus_0.5.0   ROCR_1.0-7    gplots_2.17.0 Matrix_1.2-2
 #
 # loaded via a namespace (and not attached):
 #   [1] KernSmooth_2.23-14 gdata_2.17.0       grid_3.2.0         caTools_1.17.1
