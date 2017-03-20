@@ -5,8 +5,9 @@
 A molecular quantitative trait locus analysis is performed using our 
 variational inference procedure for combined predictor and outcome 
 selection implemented in the R package **locus**. This example reproduces 
-the application given in Hélène Ruffieux, Anthony C. Davison,
-Jorg Hager, Irina Irincheeva, 2017, *Biostatistics*.
+the application given in H. Ruffieux, A. C. Davison, J. Hager, I. Irincheeva, 
+Efficient inference for genetic association studies with multiple outcomes, 
+*Biostatistics*, 2017.
 
 ## Data
 
