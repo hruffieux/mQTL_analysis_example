@@ -19,7 +19,7 @@ source("utils_permutations.R")
 
 bool_save <- TRUE
 
-main_res_dir <- file.edit(CORE_DIR, "results/Repl_mQTL_analysis_seed_123/")
+main_res_dir <- file.path(CORE_DIR, "results/Repl_mQTL_analysis_seed_123/")
 
 
 
