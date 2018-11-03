@@ -8,7 +8,7 @@ counts_perm_runs <- function(vec_dir) {
   }
 }
 
-# loads the posterior inclusion probability matrices obtained by applying vb
+# loads the posterior inclusion probability matrices obtained by applying LOCUS 
 # or varbvs on permuted data
 #
 load_perm_ppi <- function(vec_dir, meth, n_cpus = 1) {

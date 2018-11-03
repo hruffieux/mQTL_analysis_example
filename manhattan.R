@@ -13,8 +13,8 @@ load(file.path(results_dir, "output_vb.RData"))
 load(file.path(results_dir, "output_varbvs.RData"))
 
 
-## generic function to creat manhattan plots from an type of covariate scores.
-## the function can also use annotation data (if available) to display SNPs by
+## generic function to create manhattan plots from any type of association summaries.
+## The function can also use annotation data (if available) to arrange SNPs by
 ## chromosome. Specific SNPs can be spotted with colors and their names can be
 ## displayed.
 #
@@ -112,7 +112,7 @@ make_manhattan <- function(scores_x, name, thres = 5e-7, results_dir = NULL,
 
 
 
-## Manhattan plot for VB
+## Manhattan plot for LOCUS
 #
 make_manhattan(out_vb$om_vb, name = "VB", thres = log10(3.75e-5),
                results_dir = results_dir, ytitle = "E_q(omega | y)",

@@ -1,4 +1,4 @@
-# Replication of an mQTL analysis using the **locus** method on simulated data 
+# Replication of an mQTL analysis using the LOCUS method on simulated data 
 
 ## Overview 
 
@@ -11,13 +11,10 @@ Efficient inference for genetic association studies with multiple outcomes,
 
 ## Data
 
-The SNP and metabolic expressions level datasets cannot be provided for privacy 
-reason. However, these are used to simulate data that best emulate real 
-conditions. The simulated dataset can be downloaded 
-[here](https://dx.doi.org/10.6084/m9.figshare.4509755.v1); it cannot be 
-directly generated from the scripts (though the code is provided) as it is based 
-on the sample minor allele frequencies and correlation structure of the 
-confidential SNP data.
+As the genotying datasets cannot be provided for privacy reasons, we simualted 
+SNPs and outcomes using the R package **echoseq** to try to emulate the real 
+(lipid)-mQTL data analyzed. The simulated dataset can be downloaded 
+[here](https://dx.doi.org/10.6084/m9.figshare.4509755.v1).
 
 ## Algorithm
 
@@ -29,12 +26,17 @@ devtools::install_github("hruffieux/locus", ref = "v0.5.0")
 where `ref = v0.5.0` indicates the git tag corresponding to the package 
 version we used.
 
+**IMPORTANT NOTE:** this is an old version of the package, which corresponds to 
+that used in the above-cited paper. The newest version of the package has 
+improved scalability and memory management and should be used instead for 
+new analyses. 
+
 ## Workflow
 
 The scripts should be executed in the following order:
 
 1. `replicate_real_data_pb.R` (analysis using `locus`) and 
-   `replicate_real_data_pb_varbvs.R` (analysis using the single-trait 
+   `replicate_real_data_pb_varbvs.R` (analysis applying the single-trait 
    variational method "varbvs" by Carbonetto and Stephens, 2012, 
    Bayesian Analysis 7);
 
@@ -42,7 +44,7 @@ The scripts should be executed in the following order:
    `replicate_perm_varbvs.R` (idem but with `varbvs`); and
 
 3. `replicate_FDR_estimation.R` (FDR-based comparison of `locus` and 
-   `varbvs`) and `manhattan.R` (manhattan plots for inferences with 
+   `varbvs`) and `manhattan.R` (manhattan plots for inference with 
    `locus` and `varbvs`).
 
 ## Issues

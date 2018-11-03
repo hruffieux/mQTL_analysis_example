@@ -21,10 +21,10 @@ set.seed(my_seed)
 
 
 
-## ---------------------------------------------------------------------
-## --- THIS CODE CHUNK WAS USED TO SIMULATE DATA FROM REAL SNP DATA ----
-## --  it can't be executed as we do not provide the real SNPs but the -
-## --- obtained simulated SNPs can be downloaded and loaded below ------
+## ----------------------------------------------------------------------
+## --- THIS CODE CHUNK WAS USED TO SIMULATE DATA FROM REAL SNP DATA -----
+## --  it can't be executed as we do not provide the real SNPs but the --
+## -- obtained simulated SNPs can be downloaded and loaded (link below) -
 #
 
 ## simulates SNPs by emulating the correlation structure and minor allele
@@ -112,7 +112,7 @@ load(file.path(Rdata_obj_dir, "simulated_data_from_real_SNPs.RData"))
 ## ------------------------------- END ---------------------------------
 
 
-## --------------------------- VB INFERENCE ----------------------------
+## ------------------------- LOCUS INFERENCE ---------------------------
 
 
 tol <- 1e-6

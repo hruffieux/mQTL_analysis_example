@@ -7,9 +7,9 @@ setwd(main_dir)
 
 
 ## -----------------------------------------------------------------------------
-## 2 x (200 + 1) posterior inclusion probability matrices each of size 
-## ~200,000 x 250 need to be loaded
-## recommended RAM 200G, if not enough memory is available the code will crash.
+## /!\ 2 x (200 + 1) posterior inclusion probability matrices each of size 
+## ~200,000 x 250 need to be loaded !
+## recommended RAM 200G
 ##
 ## the following packages need to be installed: 
 ## ggplot2, grid, gridExtra, parallel, xtable
@@ -23,9 +23,9 @@ main_res_dir <- file.path(CORE_DIR, "results/Repl_mQTL_analysis_seed_123/")
 
 
 
-######
-# VB #
-######
+#########
+# LOCUS #
+#########
 
 
 ## loads the ppi matrices
@@ -98,9 +98,9 @@ if(bool_save) save(FDR_varbvs_med, file = file.path(main_res_dir, "FDR_varbvs.RD
 
 
 
-##############################################################
-# SPLINE FIT AND FDR-BASED COMPARISION BETWEEN VB AND VARBVS #
-##############################################################
+#################################################################
+# SPLINE FIT AND FDR-BASED COMPARISION BETWEEN LOCUS AND VARBVS #
+#################################################################
 
 ## computes thresholds for desired FDR values
 ## ------------------------------------------
